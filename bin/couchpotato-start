@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+source etc/env
+
+set -x
+exec docker run -p $COUCHPOTATO_PORT:5050 \
+                -e NEWZNAB_URL=$SPOTWEB_URL \
+                -e NEWZNAB_API_KEY=$SPOTWEB_API_KEY \
+                -e API_KEY=$COUCHPOTATO_API_KEY \
+                -e SABNZBD_URL=$SABNZBD_URL \
+                -e SABNZBD_API_KEY=$SABNZBD_API_KEY \
+                -v $(pwd)/data/couchpotato:/root/data \
+                -t -i theozaurus/couchpotato

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+source etc/env
+
+set -x
+exec docker run -p $SABNZBD_PORT:8080 \
+                -e SITE_NAME=$HOST \
+                -e SITE_PORT=$SABNZBD_PORT \
+                -e USENET_SERVER=$USENET_SERVER \
+                -e USENET_PORT=$USENET_PORT \
+                -e USENET_USER=$USENET_USER \
+                -e USENET_PASSWORD=$USENET_PASSWORD \
+                -e SABNZBD_USERNAME=$SABNZBD_USERNAME \
+                -e SABNZBD_PASSWORD=$SABNZBD_PASSWORD \
+                -e SABNZBD_API_KEY=$SABNZBD_API_KEY \
+                -v $(pwd)/data/sabnzbd/incomplete:/root/incomplete \
+                -v $(pwd)/data/sabnzbd/complete:/root/complete \
+                -v $(pwd)/data/sabnzbd/nzb:/root/nzb \
+                -v $(pwd)/data/sabnzbd/admin:/root/admin \
+                -t -i theozaurus/sabnzbd

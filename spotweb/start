@@ -1,0 +1,30 @@
+#!/bin/bash
+# -*- sh -*-
+
+NGINX_CONF=/etc/nginx/sites-enabled/spotweb.conf
+sed -i s/\$SITE_NAME/$SITE_NAME/ $NGINX_CONF
+sed -i s/\$SITE_PORT/$SITE_PORT/ $NGINX_CONF
+
+DATABASE_CONF=/var/www/spotweb/dbsettings.inc.php
+sed -i s/\$DATABASE_HOST/$DATABASE_HOST/         $DATABASE_CONF
+sed -i s/\$DATABASE_PORT/$DATABASE_PORT/         $DATABASE_CONF
+sed -i s/\$DATABASE_NAME/$DATABASE_NAME/         $DATABASE_CONF
+sed -i s/\$DATABASE_USER/$DATABASE_USER/         $DATABASE_CONF
+sed -i s/\$DATABASE_PASSWORD/$DATABASE_PASSWORD/ $DATABASE_CONF
+
+# Create database
+set -x
+echo "${DATABASE_HOST}:${DATABASE_PORT}:*:root:${DATABASE_ROOTPASS}" > /root/.pgpass
+chmod 600 /root/.pgpass
+
+createdb $DATABASE_NAME -U root -h $DATABASE_HOST
+createuser -U root -h $DATABASE_HOST --no-superuser --no-createrole --no-createdb $DATABASE_USER
+
+set -e
+
+psql --username=root -h $DATABASE_HOST template1 -c "alter user $DATABASE_USER with encrypted password '${DATABASE_PASSWORD}';"
+psql --username=root -h $DATABASE_HOST template1 -c "grant all privileges on database $DATABASE_NAME to $DATABASE_USER;"
+
+service php5-fpm start
+service nginx start
+/bin/bash

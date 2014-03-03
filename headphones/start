@@ -1,0 +1,14 @@
+#!/bin/bash
+# -*- sh -*-
+
+COUCHPOTATO_INI=/root/data/config.ini
+sed -i s/\$API_KEY/$API_KEY/ $COUCHPOTATO_INI
+sed -i s/\$NEWZNAB_URL/$NEWZNAB_URL/ $COUCHPOTATO_INI
+sed -i s/\$NEWZNAB_API_KEY/$NEWZNAB_API_KEY/ $COUCHPOTATO_INI
+sed -i s/\$SABNZBD_URL/$SABNZBD_URL/ $COUCHPOTATO_INI
+sed -i s/\$SABNZBD_USERNAME/$SABNZBD_USERNAME/ $COUCHPOTATO_INI
+sed -i s/\$SABNZBD_PASSWORD/$SABNZBD_PASSWORD/ $COUCHPOTATO_INI
+sed -i s/\$SABNZBD_API_KEY/$SABNZBD_API_KEY/ $COUCHPOTATO_INI
+
+service headphones start
+tail -f /root/data/logs/headphones.log

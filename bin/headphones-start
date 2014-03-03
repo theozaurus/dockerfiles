@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+source etc/env
+
+set -x
+exec docker run -p $HEADPHONES_PORT:5050 \
+                -e API_KEY=$HEADPHONES_API_KEY \
+                -e SABNZBD_URL=$SABNZBD_URL \
+                -e NEWZNAB_URL=$SPOTWEB_URL \
+                -e NEWZNAB_API_KEY=$SPOTWEB_API_KEY \
+                -e SABNZBD_USERNAME=$SABNZBD_USERNAME \
+                -e SABNZBD_PASSWORD=$SABNZBD_PASSWORD \
+                -e SABNZBD_API_KEY=$SABNZBD_API_KEY \
+                -v $(pwd)/data/headphones:/root/data \
+                -v $(pwd)/data/music:/root/destination \
+                -v $(pwd)/data/sabnzbd/complete:/root/complete \
+                -t -i theozaurus/headphones

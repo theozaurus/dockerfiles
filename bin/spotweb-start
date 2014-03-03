@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+source etc/env
+
+set -x
+exec docker run -p $SPOTWEB_PORT:$SPOTWEB_PORT \
+                -e SITE_PORT=$SPOTWEB_PORT \
+                -e SITE_HOST=$HOSTIP \
+                -e SITE_NAME=$HOST \
+                -e DATABASE_HOST=$HOSTIP \
+                -e DATABASE_PORT=5432 \
+                -e DATABASE_NAME=spotweb \
+                -e DATABASE_USER=spotweb \
+                -e DATABASE_PASSWORD=spotweb \
+                -e DATABASE_ROOTPASS=postgres \
+                -t -i theozaurus/spotweb

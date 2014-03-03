@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+source etc/env
+
+set -x
+exec docker run -p 5432:5432 -v $(pwd)/data/postgres:/var/lib/postgresql theozaurus/postgres

@@ -1,0 +1,23 @@
+# This file is sourced by /etc/init.d/couchpotato
+#
+# When couchpotato is started using the init script
+# is started under the account of $USER, as set below.
+
+# OPTIONS: CP_HOME, CP_USER, CP_DATA, CP_PIDFILE, PYTHON_BIN, CP_OPTS, SSD_OPTS
+
+# User or uid of account to run the program as:
+CP_USER=root
+
+# Set path where couchpotato is installed:
+CP_HOME=/var/sites/couchpotato
+
+# Full path to the folder to store data in;
+# otherwise, the default location (~/.couchpotato) is used:
+CP_DATA=/root/data
+
+# Full path for the pidfile
+# otherwise, the default location /var/run/couchpotato.pid is used:
+CP_PIDFILE=/var/run/couchpotato.pid
+
+# extra cli option for couchpotato, i.e. " --config_file=/home/couchpotato/couchpotato.ini"
+CP_OPTS=" --config_file=/root/couchpotato.ini"

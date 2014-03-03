@@ -1,0 +1,1 @@
+30 */4 * * * /usr/bin/php /var/www/spotweb/retrieve.php >> /var/log/spotweb 2>&1
